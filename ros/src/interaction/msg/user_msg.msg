@@ -1,0 +1,3 @@
+information_msg information
+position_msg position
+string emotion

@@ -1,0 +1,37 @@
+<launch>
+
+  <!-- Arguments -->
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="x_pos" default="2.0"/>
+  <arg name="y_pos" default="2.0"/>
+  <arg name="z_pos" default="0"/>
+  <arg name="world" default="map1"/>
+
+  <!-- World -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="/home/parallels/Programs/ros/src/autonomous_slam/worlds/$(arg world).world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Robot model -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+  <!-- SLAM -->
+  <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch"></include>
+
+  <!-- AUTONOMOUS NAVIGATION -->
+  <include file="$(find turtlebot3_navigation)/launch/move_base.launch"></include>
+  <node pkg="autonomous_slam" type="node_handler.py" name="node_handler" output="screen"></node>
+  <node pkg="autonomous_slam" type="statistics.py" name="statistics" output="screen"></node>
+  <node pkg="autonomous_slam" type="map_analyzer.py" name="map_analyzer" output="screen"></node>
+  <node pkg="autonomous_slam" type="wall_follower.py" name="wall_follower" output="screen"></node>
+  <node pkg="autonomous_slam" type="move_to_point.py" name="move_to_point" output="screen"></node>
+  <node pkg="autonomous_slam" type="voronoi.py" name="voronoi" output="screen"></node>
+
+
+</launch>

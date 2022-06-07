@@ -1,0 +1,8 @@
+prefix=/home/vistor/catkin_ws/install
+
+Name: interaction
+Description: Description of interaction
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

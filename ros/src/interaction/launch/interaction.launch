@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="interaction" name="assembler_node" type="assembler_node" respawn="true" output="screen" launch-prefix="xterm -e"/>
+    <node pkg="interaction" name="emotion_node" type="emotion_node" respawn="true" output="screen" launch-prefix="xterm -e"/>
+    <node pkg="interaction" name="information_node" type="information_node.py" respawn="true" output="screen" launch-prefix="xterm -e"/>
+    <node pkg="interaction" name="position_node" type="position_node.py" respawn="true" output="screen" launch-prefix="xterm -e"/>
+    <node pkg="interaction" name="dialog_node" type="dialog_node" respawn="true" output="screen" launch-prefix="xterm -e"/>
+    <node pkg="interaction" name="mathematician_node" type="mathematician_node" respawn="true" output="screen" launch-prefix="xterm -e"/>
+    <node pkg="interaction" name="clock_node" type="clock_node" respawn="true" output="screen" launch-prefix="xterm -e"/>
+</launch>
